@@ -13,6 +13,7 @@
         <link rel="stylesheet" href="css/fontawesome-all.min.css">
         <link rel="stylesheet" href="css/filter.css">
 <link rel="stylesheet" href="css/nouislider.min.css">
+        <link rel="stylesheet" href="css/leaflet-control-geocoder.Geocoder.css">
         <link rel="stylesheet" href="css/leaflet-measure.css">
         <style>
         html, body, #map {
@@ -38,14 +39,15 @@
         <script src="js/rbush.min.js"></script>
         <script src="js/labelgun.min.js"></script>
         <script src="js/labels.js"></script>
+        <script src="js/leaflet-control-geocoder.Geocoder.js"></script>
         <script src="js/leaflet-measure.js"></script>
         <script src="js/tailDT.js"></script>
 <script src="js/nouislider.min.js"></script>
 <script src="js/wNumb.js"></script>
-        <script src="data/zone56_1.js"></script>
-        <script src="data/Creeks_2.js"></script>
-        <script src="data/TrailheadsParking_3.js"></script>
-        <script src="data/Trails_4.js"></script>
+        <script src="data/zone56_2.js"></script>
+        <script src="data/Creeks_3.js"></script>
+        <script src="data/TrailheadsParking_4.js"></script>
+        <script src="data/Trails_5.js"></script>
         <script>
         var highlightLayer;
         function highlightFeature(e) {
@@ -64,7 +66,7 @@
         }
         var map = L.map('map', {
             zoomControl:false, maxZoom:28, minZoom:1
-        }).fitBounds([[40.05371041922825,-75.23665211871274],[40.07009188922667,-75.20732708128739]]);
+        }).fitBounds([[40.04913177912593,-75.23891720985361],[40.06867436505343,-75.20403399645811]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -122,11 +124,25 @@
         document.getElementsByClassName('leaflet-control-measure-toggle')[0].className += ' fas fa-ruler';
         var bounds_group = new L.featureGroup([]);
         function setBounds() {
+            map.setMaxBounds(map.getBounds());
         }
-        map.createPane('pane_OSMStandard_0');
-        map.getPane('pane_OSMStandard_0').style.zIndex = 400;
-        var layer_OSMStandard_0 = L.tileLayer('http://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            pane: 'pane_OSMStandard_0',
+        map.createPane('pane_GoogleTerrain_0');
+        map.getPane('pane_GoogleTerrain_0').style.zIndex = 400;
+        var layer_GoogleTerrain_0 = L.tileLayer('https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}', {
+            pane: 'pane_GoogleTerrain_0',
+            opacity: 1.0,
+            attribution: '<a href="https://www.google.at/permissions/geoguidelines/attr-guide.html">Map data ©2015 Google</a>',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 20
+        });
+        layer_GoogleTerrain_0;
+        map.addLayer(layer_GoogleTerrain_0);
+        map.createPane('pane_OSMStandard_1');
+        map.getPane('pane_OSMStandard_1').style.zIndex = 401;
+        var layer_OSMStandard_1 = L.tileLayer('http://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            pane: 'pane_OSMStandard_1',
             opacity: 1.0,
             attribution: '<a href="https://www.openstreetmap.org/copyright">© OpenStreetMap contributors, CC-BY-SA</a>',
             minZoom: 1,
@@ -134,9 +150,8 @@
             minNativeZoom: 0,
             maxNativeZoom: 19
         });
-        layer_OSMStandard_0;
-        map.addLayer(layer_OSMStandard_0);
-        function pop_zone56_1(feature, layer) {
+        layer_OSMStandard_1;
+        function pop_zone56_2(feature, layer) {
             layer.on({
                 mouseout: function(e) {
                     for (var i in e.target._eventParents) {
@@ -162,70 +177,55 @@
 			layer.bindPopup(content, { maxHeight: 400 });
         }
 
-        function style_zone56_1_0(feature) {
+        function style_zone56_2_0(feature) {
             switch(String(feature.properties['Name'])) {
                 case 'ZONE 5 ':
                     return {
-                pane: 'pane_zone56_1',
+                pane: 'pane_zone56_2',
                 opacity: 1,
-                color: 'rgba(0,0,0,1.0)',
+                color: 'rgba(0,0,0,0.512)',
                 dashArray: '',
                 lineCap: 'butt',
                 lineJoin: 'miter',
-                weight: 1.0, 
+                weight: 2.0, 
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(253,191,111,1.0)',
+                fillColor: 'rgba(253,191,111,0.512)',
                 interactive: true,
             }
                     break;
                 case 'ZONE 6 ':
                     return {
-                pane: 'pane_zone56_1',
+                pane: 'pane_zone56_2',
                 opacity: 1,
-                color: 'rgba(0,0,0,1.0)',
+                color: 'rgba(0,0,0,0.512)',
                 dashArray: '',
                 lineCap: 'butt',
                 lineJoin: 'miter',
-                weight: 1.0, 
+                weight: 2.0, 
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(105,131,205,1.0)',
-                interactive: true,
-            }
-                    break;
-                default:
-                    return {
-                pane: 'pane_zone56_1',
-                opacity: 1,
-                color: 'rgba(0,0,0,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1.0, 
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(232,87,126,1.0)',
+                fillColor: 'rgba(251,154,153,0.512)',
                 interactive: true,
             }
                     break;
             }
         }
-        map.createPane('pane_zone56_1');
-        map.getPane('pane_zone56_1').style.zIndex = 401;
-        map.getPane('pane_zone56_1').style['mix-blend-mode'] = 'normal';
-        var layer_zone56_1 = new L.geoJson(json_zone56_1, {
+        map.createPane('pane_zone56_2');
+        map.getPane('pane_zone56_2').style.zIndex = 402;
+        map.getPane('pane_zone56_2').style['mix-blend-mode'] = 'normal';
+        var layer_zone56_2 = new L.geoJson(json_zone56_2, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_zone56_1',
-            layerName: 'layer_zone56_1',
-            pane: 'pane_zone56_1',
-            onEachFeature: pop_zone56_1,
-            style: style_zone56_1_0,
+            dataVar: 'json_zone56_2',
+            layerName: 'layer_zone56_2',
+            pane: 'pane_zone56_2',
+            onEachFeature: pop_zone56_2,
+            style: style_zone56_2_0,
         });
-        bounds_group.addLayer(layer_zone56_1);
-        map.addLayer(layer_zone56_1);
-        function pop_Creeks_2(feature, layer) {
+        bounds_group.addLayer(layer_zone56_2);
+        map.addLayer(layer_zone56_2);
+        function pop_Creeks_3(feature, layer) {
             layer.on({
                 mouseout: function(e) {
                     for (var i in e.target._eventParents) {
@@ -240,9 +240,6 @@
                     <tr>\
                         <td colspan="2">' + (feature.properties['creek_name'] !== null ? autolinker.link(String(feature.properties['creek_name']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['subshed'] !== null ? autolinker.link(String(feature.properties['subshed']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
                 </table>';
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
 			layer.on('popupopen', function(e) {
@@ -251,9 +248,9 @@
 			layer.bindPopup(content, { maxHeight: 400 });
         }
 
-        function style_Creeks_2_0() {
+        function style_Creeks_3_0() {
             return {
-                pane: 'pane_Creeks_2',
+                pane: 'pane_Creeks_3',
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -266,21 +263,21 @@
                 interactive: true,
             }
         }
-        map.createPane('pane_Creeks_2');
-        map.getPane('pane_Creeks_2').style.zIndex = 402;
-        map.getPane('pane_Creeks_2').style['mix-blend-mode'] = 'normal';
-        var layer_Creeks_2 = new L.geoJson(json_Creeks_2, {
+        map.createPane('pane_Creeks_3');
+        map.getPane('pane_Creeks_3').style.zIndex = 403;
+        map.getPane('pane_Creeks_3').style['mix-blend-mode'] = 'normal';
+        var layer_Creeks_3 = new L.geoJson(json_Creeks_3, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_Creeks_2',
-            layerName: 'layer_Creeks_2',
-            pane: 'pane_Creeks_2',
-            onEachFeature: pop_Creeks_2,
-            style: style_Creeks_2_0,
+            dataVar: 'json_Creeks_3',
+            layerName: 'layer_Creeks_3',
+            pane: 'pane_Creeks_3',
+            onEachFeature: pop_Creeks_3,
+            style: style_Creeks_3_0,
         });
-        bounds_group.addLayer(layer_Creeks_2);
-        map.addLayer(layer_Creeks_2);
-        function pop_TrailheadsParking_3(feature, layer) {
+        bounds_group.addLayer(layer_Creeks_3);
+        map.addLayer(layer_Creeks_3);
+        function pop_TrailheadsParking_4(feature, layer) {
             layer.on({
                 mouseout: function(e) {
                     for (var i in e.target._eventParents) {
@@ -294,14 +291,11 @@
             var popupContent = '<table>\
                     <tr>\
                         <th scope="row">Name</th>\
-                        <td class="visible-with-data" id="Name">' + (feature.properties['Name'] !== null ? autolinker.link(String(feature.properties['Name']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                        <td>' + (feature.properties['Name'] !== null ? autolinker.link(String(feature.properties['Name']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
                         <th scope="row">description</th>\
-                        <td>' + (feature.properties['description'] !== null ? autolinker.link(String(feature.properties['description']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['icon'] !== null ? autolinker.link(String(feature.properties['icon']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                        <td class="visible-with-data" id="description">' + (feature.properties['description'] !== null ? autolinker.link(String(feature.properties['description']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
@@ -311,15 +305,15 @@
 			layer.bindPopup(content, { maxHeight: 400 });
         }
 
-        function style_TrailheadsParking_3_0(feature) {
+        function style_TrailheadsParking_4_0(feature) {
             switch(String(feature.properties['Name'])) {
                 case 'Access to Rittenhouse Town':
                     return {
-                pane: 'pane_TrailheadsParking_3',
+                pane: 'pane_TrailheadsParking_4',
         rotationAngle: 0.0,
         rotationOrigin: 'center center',
         icon: L.icon({
-            iconUrl: 'markers/TrailheadsParking_3.svg',
+            iconUrl: 'markers/TrailheadsParking_4.svg',
             iconSize: [19.0, 19.0]
         }),
                 interactive: true,
@@ -327,11 +321,11 @@
                     break;
                 case 'Trail Access':
                     return {
-                pane: 'pane_TrailheadsParking_3',
+                pane: 'pane_TrailheadsParking_4',
         rotationAngle: 0.0,
         rotationOrigin: 'center center',
         icon: L.icon({
-            iconUrl: 'markers/TrailheadsParking_3.svg',
+            iconUrl: 'markers/TrailheadsParking_4.svg',
             iconSize: [19.0, 19.0]
         }),
                 interactive: true,
@@ -339,11 +333,11 @@
                     break;
                 case 'Trailhead - no parking':
                     return {
-                pane: 'pane_TrailheadsParking_3',
+                pane: 'pane_TrailheadsParking_4',
         rotationAngle: 0.0,
         rotationOrigin: 'center center',
         icon: L.icon({
-            iconUrl: 'markers/TrailheadsParking_3.svg',
+            iconUrl: 'markers/TrailheadsParking_4.svg',
             iconSize: [19.0, 19.0]
         }),
                 interactive: true,
@@ -351,11 +345,11 @@
                     break;
                 case 'Trailhead - No Parking':
                     return {
-                pane: 'pane_TrailheadsParking_3',
+                pane: 'pane_TrailheadsParking_4',
         rotationAngle: 0.0,
         rotationOrigin: 'center center',
         icon: L.icon({
-            iconUrl: 'markers/TrailheadsParking_3.svg',
+            iconUrl: 'markers/TrailheadsParking_4.svg',
             iconSize: [19.0, 19.0]
         }),
                 interactive: true,
@@ -363,11 +357,11 @@
                     break;
                 case '[\'Trailhead near parking lots\', \'Trailhead with parking\', \'Parking Area\', \'Parking Lot\', \'Small Lot\', \'Small parking lot\', \'Small Parking Lot\', \'Some Parking\', \'Large Parking Lot\', \'Trailhead with minimal parking\']':
                     return {
-                pane: 'pane_TrailheadsParking_3',
+                pane: 'pane_TrailheadsParking_4',
         rotationAngle: 0.0,
         rotationOrigin: 'center center',
         icon: L.icon({
-            iconUrl: 'markers/TrailheadsParking_3.svg',
+            iconUrl: 'markers/TrailheadsParking_4.svg',
             iconSize: [19.0, 19.0]
         }),
                 interactive: true,
@@ -375,11 +369,11 @@
                     break;
                 default:
                     return {
-                pane: 'pane_TrailheadsParking_3',
+                pane: 'pane_TrailheadsParking_4',
         rotationAngle: 0.0,
         rotationOrigin: 'center center',
         icon: L.icon({
-            iconUrl: 'markers/TrailheadsParking_3.svg',
+            iconUrl: 'markers/TrailheadsParking_4.svg',
             iconSize: [19.0, 19.0]
         }),
                 interactive: true,
@@ -387,11 +381,11 @@
                     break;
                 case '[\'Lots of Street Parking\', \'Street parking\', \'Street Parking\']':
                     return {
-                pane: 'pane_TrailheadsParking_3',
+                pane: 'pane_TrailheadsParking_4',
         rotationAngle: 0.0,
         rotationOrigin: 'center center',
         icon: L.icon({
-            iconUrl: 'markers/TrailheadsParking_3.svg',
+            iconUrl: 'markers/TrailheadsParking_4.svg',
             iconSize: [19.0, 19.0]
         }),
                 interactive: true,
@@ -399,27 +393,27 @@
                     break;
             }
         }
-        map.createPane('pane_TrailheadsParking_3');
-        map.getPane('pane_TrailheadsParking_3').style.zIndex = 403;
-        map.getPane('pane_TrailheadsParking_3').style['mix-blend-mode'] = 'normal';
-        var layer_TrailheadsParking_3 = new L.geoJson(json_TrailheadsParking_3, {
+        map.createPane('pane_TrailheadsParking_4');
+        map.getPane('pane_TrailheadsParking_4').style.zIndex = 404;
+        map.getPane('pane_TrailheadsParking_4').style['mix-blend-mode'] = 'normal';
+        var layer_TrailheadsParking_4 = new L.geoJson(json_TrailheadsParking_4, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_TrailheadsParking_3',
-            layerName: 'layer_TrailheadsParking_3',
-            pane: 'pane_TrailheadsParking_3',
-            onEachFeature: pop_TrailheadsParking_3,
+            dataVar: 'json_TrailheadsParking_4',
+            layerName: 'layer_TrailheadsParking_4',
+            pane: 'pane_TrailheadsParking_4',
+            onEachFeature: pop_TrailheadsParking_4,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.marker(latlng, style_TrailheadsParking_3_0(feature));
+                return L.marker(latlng, style_TrailheadsParking_4_0(feature));
             },
         });
-        bounds_group.addLayer(layer_TrailheadsParking_3);
-        map.addLayer(layer_TrailheadsParking_3);
-        function pop_Trails_4(feature, layer) {
+        bounds_group.addLayer(layer_TrailheadsParking_4);
+        map.addLayer(layer_TrailheadsParking_4);
+        function pop_Trails_5(feature, layer) {
             layer.on({
                 mouseout: function(e) {
                     for (var i in e.target._eventParents) {
@@ -436,6 +430,14 @@
                         <td class="visible-with-data" id="TRAIL_NAME">' + (feature.properties['TRAIL_NAME'] !== null ? autolinker.link(String(feature.properties['TRAIL_NAME']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
+                        <th scope="row">ALIAS</th>\
+                        <td class="visible-with-data" id="ALIAS">' + (feature.properties['ALIAS'] !== null ? autolinker.link(String(feature.properties['ALIAS']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">TRAIL_TYPE</th>\
+                        <td class="visible-with-data" id="TRAIL_TYPE">' + (feature.properties['TRAIL_TYPE'] !== null ? autolinker.link(String(feature.properties['TRAIL_TYPE']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
                         <th scope="row">Surface</th>\
                         <td class="visible-with-data" id="TRAIL_SURF">' + (feature.properties['TRAIL_SURF'] !== null ? autolinker.link(String(feature.properties['TRAIL_SURF']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
@@ -449,7 +451,7 @@
                     </tr>\
                     <tr>\
                         <th scope="row">Segment Miles</th>\
-                        <td>' + (feature.properties['MILES'] !== null ? autolinker.link(String(feature.properties['MILES']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                        <td class="visible-with-data" id="MILES">' + (feature.properties['MILES'] !== null ? autolinker.link(String(feature.properties['MILES']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
@@ -459,13 +461,13 @@
 			layer.bindPopup(content, { maxHeight: 400 });
         }
 
-        function style_Trails_4_0(feature) {
+        function style_Trails_5_0(feature) {
             switch(String(feature.properties['TRAIL_NAME'])) {
                 default:
                     return {
-                pane: 'pane_Trails_4',
+                pane: 'pane_Trails_5',
                 opacity: 1,
-                color: 'rgba(159,228,89,1.0)',
+                color: 'rgba(15,21,8,1.0)',
                 dashArray: '',
                 lineCap: 'square',
                 lineJoin: 'bevel',
@@ -476,7 +478,7 @@
                     break;
                 case '100 Steps':
                     return {
-                pane: 'pane_Trails_4',
+                pane: 'pane_Trails_5',
                 opacity: 1,
                 color: 'rgba(27,224,27,1.0)',
                 dashArray: '',
@@ -489,7 +491,7 @@
                     break;
                 case 'Andorra Bike Bypass':
                     return {
-                pane: 'pane_Trails_4',
+                pane: 'pane_Trails_5',
                 opacity: 1,
                 color: 'rgba(231,15,202,1.0)',
                 dashArray: '',
@@ -502,7 +504,7 @@
                     break;
                 case 'Bells Mill Road Bridge':
                     return {
-                pane: 'pane_Trails_4',
+                pane: 'pane_Trails_5',
                 opacity: 1,
                 color: 'rgba(226,153,43,1.0)',
                 dashArray: '',
@@ -515,7 +517,7 @@
                     break;
                 case 'Blue Stone Bridge':
                     return {
-                pane: 'pane_Trails_4',
+                pane: 'pane_Trails_5',
                 opacity: 1,
                 color: 'rgba(55,172,65,1.0)',
                 dashArray: '',
@@ -528,7 +530,7 @@
                     break;
                 case 'Cresheim Foot Bridge':
                     return {
-                pane: 'pane_Trails_4',
+                pane: 'pane_Trails_5',
                 opacity: 1,
                 color: 'rgba(197,163,90,1.0)',
                 dashArray: '',
@@ -541,7 +543,7 @@
                     break;
                 case 'Forbidden Drive':
                     return {
-                pane: 'pane_Trails_4',
+                pane: 'pane_Trails_5',
                 opacity: 1,
                 color: 'rgba(33,28,226,1.0)',
                 dashArray: '',
@@ -554,7 +556,7 @@
                     break;
                 case 'Kitchens Lane Bridge':
                     return {
-                pane: 'pane_Trails_4',
+                pane: 'pane_Trails_5',
                 opacity: 1,
                 color: 'rgba(177,225,132,1.0)',
                 dashArray: '',
@@ -567,7 +569,7 @@
                     break;
                 case 'Lavender Trail':
                     return {
-                pane: 'pane_Trails_4',
+                pane: 'pane_Trails_5',
                 opacity: 1,
                 color: 'rgba(182,124,210,1.0)',
                 dashArray: '',
@@ -580,7 +582,7 @@
                     break;
                 case 'Lincoln Drive Trail':
                     return {
-                pane: 'pane_Trails_4',
+                pane: 'pane_Trails_5',
                 opacity: 1,
                 color: 'rgba(233,16,45,1.0)',
                 dashArray: '',
@@ -593,7 +595,7 @@
                     break;
                 case 'Lincoln Drive Trail Boardwalk':
                     return {
-                pane: 'pane_Trails_4',
+                pane: 'pane_Trails_5',
                 opacity: 1,
                 color: 'rgba(100,62,133,1.0)',
                 dashArray: '',
@@ -606,7 +608,7 @@
                     break;
                 case 'Livezey Lane Sidepath':
                     return {
-                pane: 'pane_Trails_4',
+                pane: 'pane_Trails_5',
                 opacity: 1,
                 color: 'rgba(191,133,238,1.0)',
                 dashArray: '',
@@ -617,22 +619,9 @@
                 interactive: true,
             }
                     break;
-                case 'Minor Trail':
-                    return {
-                pane: 'pane_Trails_4',
-                opacity: 1,
-                color: 'rgba(0,0,0,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 2.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
                 case 'Monastery Driveway':
                     return {
-                pane: 'pane_Trails_4',
+                pane: 'pane_Trails_5',
                 opacity: 1,
                 color: 'rgba(163,101,233,1.0)',
                 dashArray: '',
@@ -645,7 +634,7 @@
                     break;
                 case 'Monastery Driveway Loop':
                     return {
-                pane: 'pane_Trails_4',
+                pane: 'pane_Trails_5',
                 opacity: 1,
                 color: 'rgba(71,147,114,1.0)',
                 dashArray: '',
@@ -658,7 +647,7 @@
                     break;
                 case 'Mt Airy Ave Bridge':
                     return {
-                pane: 'pane_Trails_4',
+                pane: 'pane_Trails_5',
                 opacity: 1,
                 color: 'rgba(168,133,82,1.0)',
                 dashArray: '',
@@ -671,7 +660,7 @@
                     break;
                 case 'Orange Trail':
                     return {
-                pane: 'pane_Trails_4',
+                pane: 'pane_Trails_5',
                 opacity: 1,
                 color: 'rgba(255,127,0,1.0)',
                 dashArray: '',
@@ -684,7 +673,7 @@
                     break;
                 case 'Rex Avenue Bridge':
                     return {
-                pane: 'pane_Trails_4',
+                pane: 'pane_Trails_5',
                 opacity: 1,
                 color: 'rgba(131,204,105,1.0)',
                 dashArray: '',
@@ -697,7 +686,7 @@
                     break;
                 case 'Thomas Mill Covered Bridge':
                     return {
-                pane: 'pane_Trails_4',
+                pane: 'pane_Trails_5',
                 opacity: 1,
                 color: 'rgba(32,135,169,1.0)',
                 dashArray: '',
@@ -710,7 +699,7 @@
                     break;
                 case 'Valley Green Bridge':
                     return {
-                pane: 'pane_Trails_4',
+                pane: 'pane_Trails_5',
                 opacity: 1,
                 color: 'rgba(219,245,48,1.0)',
                 dashArray: '',
@@ -723,7 +712,7 @@
                     break;
                 case 'White Trail':
                     return {
-                pane: 'pane_Trails_4',
+                pane: 'pane_Trails_5',
                 opacity: 1,
                 color: 'rgba(255,255,255,1.0)',
                 dashArray: '',
@@ -736,7 +725,7 @@
                     break;
                 case 'Wissahickon EEC Driveway':
                     return {
-                pane: 'pane_Trails_4',
+                pane: 'pane_Trails_5',
                 opacity: 1,
                 color: 'rgba(122,255,155,1.0)',
                 dashArray: '',
@@ -749,7 +738,7 @@
                     break;
                 case 'Yellow Trail':
                     return {
-                pane: 'pane_Trails_4',
+                pane: 'pane_Trails_5',
                 opacity: 1,
                 color: 'rgba(243,239,39,1.0)',
                 dashArray: '',
@@ -762,7 +751,7 @@
                     break;
                 case 'Brown Trail':
                     return {
-                pane: 'pane_Trails_4',
+                pane: 'pane_Trails_5',
                 opacity: 1,
                 color: 'rgba(145,104,17,1.0)',
                 dashArray: '',
@@ -773,67 +762,52 @@
                 interactive: true,
             }
                     break;
-                case 'Old Yello Trail':
+                case '[\'Connector Trail\', \'Minor Trail\']':
                     return {
-                pane: 'pane_Trails_4',
+                pane: 'pane_Trails_5',
                 opacity: 1,
-                color: 'rgba(173,60,43,1.0)',
+                color: 'rgba(24,157,143,1.0)',
                 dashArray: '',
                 lineCap: 'square',
                 lineJoin: 'bevel',
-                weight: 2.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case 'Old Yellow Trail':
-                    return {
-                pane: 'pane_Trails_4',
-                opacity: 1,
-                color: 'rgba(74,143,79,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 2.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case 'Minor Connector':
-                    return {
-                pane: 'pane_Trails_4',
-                opacity: 1,
-                color: 'rgba(0,0,0,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 2.0,
+                weight: 3.0,
                 fillOpacity: 0,
                 interactive: true,
             }
                     break;
             }
         }
-        map.createPane('pane_Trails_4');
-        map.getPane('pane_Trails_4').style.zIndex = 404;
-        map.getPane('pane_Trails_4').style['mix-blend-mode'] = 'normal';
-        var layer_Trails_4 = new L.geoJson(json_Trails_4, {
+        map.createPane('pane_Trails_5');
+        map.getPane('pane_Trails_5').style.zIndex = 405;
+        map.getPane('pane_Trails_5').style['mix-blend-mode'] = 'normal';
+        var layer_Trails_5 = new L.geoJson(json_Trails_5, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_Trails_4',
-            layerName: 'layer_Trails_4',
-            pane: 'pane_Trails_4',
-            onEachFeature: pop_Trails_4,
-            style: style_Trails_4_0,
+            dataVar: 'json_Trails_5',
+            layerName: 'layer_Trails_5',
+            pane: 'pane_Trails_5',
+            onEachFeature: pop_Trails_5,
+            style: style_Trails_5_0,
         });
-        bounds_group.addLayer(layer_Trails_4);
-        map.addLayer(layer_Trails_4);
+        bounds_group.addLayer(layer_Trails_5);
+        map.addLayer(layer_Trails_5);
+        var osmGeocoder = new L.Control.Geocoder({
+            collapsed: true,
+            position: 'topleft',
+            text: 'Search',
+            title: 'Testing'
+        }).addTo(map);
+        document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
+        .className += ' fa fa-search';
+        document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
+        .title += 'Search for a place';
         var overlaysTree = [
-            {label: 'Trails<br /><table><tr><td style="text-align: center;"><img src="legend/Trails_4_0.png" /></td><td></td></tr><tr><td style="text-align: center;"><img src="legend/Trails_4_100Steps1.png" /></td><td>100 Steps</td></tr><tr><td style="text-align: center;"><img src="legend/Trails_4_AndorraBikeBypass2.png" /></td><td>Andorra Bike Bypass</td></tr><tr><td style="text-align: center;"><img src="legend/Trails_4_BellsMillRoadBridge3.png" /></td><td>Bells Mill Road Bridge</td></tr><tr><td style="text-align: center;"><img src="legend/Trails_4_BlueStoneBridge4.png" /></td><td>Blue Stone Bridge</td></tr><tr><td style="text-align: center;"><img src="legend/Trails_4_CresheimFootBridge5.png" /></td><td>Cresheim Foot Bridge</td></tr><tr><td style="text-align: center;"><img src="legend/Trails_4_ForbiddenDrive6.png" /></td><td>Forbidden Drive</td></tr><tr><td style="text-align: center;"><img src="legend/Trails_4_KitchensLaneBridge7.png" /></td><td>Kitchens Lane Bridge</td></tr><tr><td style="text-align: center;"><img src="legend/Trails_4_LavenderTrail8.png" /></td><td>Lavender Trail</td></tr><tr><td style="text-align: center;"><img src="legend/Trails_4_LincolnDriveTrail9.png" /></td><td>Lincoln Drive Trail</td></tr><tr><td style="text-align: center;"><img src="legend/Trails_4_LincolnDriveTrailBoardwalk10.png" /></td><td>Lincoln Drive Trail Boardwalk</td></tr><tr><td style="text-align: center;"><img src="legend/Trails_4_LivezeyLaneSidepath11.png" /></td><td>Livezey Lane Sidepath</td></tr><tr><td style="text-align: center;"><img src="legend/Trails_4_MinorTrail12.png" /></td><td>Minor Trail</td></tr><tr><td style="text-align: center;"><img src="legend/Trails_4_MonasteryDriveway13.png" /></td><td>Monastery Driveway</td></tr><tr><td style="text-align: center;"><img src="legend/Trails_4_MonasteryDrivewayLoop14.png" /></td><td>Monastery Driveway Loop</td></tr><tr><td style="text-align: center;"><img src="legend/Trails_4_MtAiryAveBridge15.png" /></td><td>Mt Airy Ave Bridge</td></tr><tr><td style="text-align: center;"><img src="legend/Trails_4_OrangeTrail16.png" /></td><td>Orange Trail</td></tr><tr><td style="text-align: center;"><img src="legend/Trails_4_RexAvenueBridge17.png" /></td><td>Rex Avenue Bridge</td></tr><tr><td style="text-align: center;"><img src="legend/Trails_4_ThomasMillCoveredBridge18.png" /></td><td>Thomas Mill Covered Bridge</td></tr><tr><td style="text-align: center;"><img src="legend/Trails_4_ValleyGreenBridge19.png" /></td><td>Valley Green Bridge</td></tr><tr><td style="text-align: center;"><img src="legend/Trails_4_WhiteTrail20.png" /></td><td>White Trail</td></tr><tr><td style="text-align: center;"><img src="legend/Trails_4_WissahickonEECDriveway21.png" /></td><td>Wissahickon EEC Driveway</td></tr><tr><td style="text-align: center;"><img src="legend/Trails_4_YellowTrail22.png" /></td><td>Yellow Trail</td></tr><tr><td style="text-align: center;"><img src="legend/Trails_4_BrownTrail23.png" /></td><td>Brown Trail</td></tr><tr><td style="text-align: center;"><img src="legend/Trails_4_OldYelloTrail24.png" /></td><td>Old Yello Trail</td></tr><tr><td style="text-align: center;"><img src="legend/Trails_4_OldYellowTrail25.png" /></td><td>Old Yellow Trail</td></tr><tr><td style="text-align: center;"><img src="legend/Trails_4_MinorConnector26.png" /></td><td>Minor Connector</td></tr></table>', layer: layer_Trails_4},
-            {label: 'Trailheads & Parking<br /><table><tr><td style="text-align: center;"><img src="legend/TrailheadsParking_3_AccesstoRittenhouseTown0.png" /></td><td>Access to Rittenhouse Town</td></tr><tr><td style="text-align: center;"><img src="legend/TrailheadsParking_3_TrailAccess1.png" /></td><td>Trail Access</td></tr><tr><td style="text-align: center;"><img src="legend/TrailheadsParking_3_Trailheadnoparking2.png" /></td><td>Trailhead - no parking</td></tr><tr><td style="text-align: center;"><img src="legend/TrailheadsParking_3_TrailheadNoParking3.png" /></td><td>Trailhead - No Parking</td></tr><tr><td style="text-align: center;"><img src="legend/TrailheadsParking_3_TrailheadnearparkinglotsTrailheadwithparkingParkingAreaParkingLotSmallLotSmallparkinglotSmallParkingLotSomeParkingLargeParkingLotTrailheadwithminimalparking4.png" /></td><td>Trailhead near parking lots,Trailhead with parking,Parking Area,Parking Lot,Small Lot,Small parking lot,Small Parking Lot,Some Parking,Large Parking Lot,Trailhead with minimal parking</td></tr><tr><td style="text-align: center;"><img src="legend/TrailheadsParking_3_5.png" /></td><td></td></tr><tr><td style="text-align: center;"><img src="legend/TrailheadsParking_3_LotsofStreetParkingStreetparkingStreetParking6.png" /></td><td>Lots of Street Parking,Street parking,Street Parking</td></tr></table>', layer: layer_TrailheadsParking_3},
-            {label: '<img src="legend/Creeks_2.png" /> Creeks', layer: layer_Creeks_2},
-            {label: 'zone56<br /><table><tr><td style="text-align: center;"><img src="legend/zone56_1_ZONE50.png" /></td><td>ZONE 5 </td></tr><tr><td style="text-align: center;"><img src="legend/zone56_1_ZONE61.png" /></td><td>ZONE 6 </td></tr><tr><td style="text-align: center;"><img src="legend/zone56_1_2.png" /></td><td></td></tr></table>', layer: layer_zone56_1},
-            {label: "OSM Standard", layer: layer_OSMStandard_0},]
+            {label: 'Trails<br /><table><tr><td style="text-align: center;"><img src="legend/Trails_5_0.png" /></td><td></td></tr><tr><td style="text-align: center;"><img src="legend/Trails_5_100Steps1.png" /></td><td>100 Steps</td></tr><tr><td style="text-align: center;"><img src="legend/Trails_5_AndorraBikeBypass2.png" /></td><td>Andorra Bike Bypass</td></tr><tr><td style="text-align: center;"><img src="legend/Trails_5_BellsMillRoadBridge3.png" /></td><td>Bells Mill Road Bridge</td></tr><tr><td style="text-align: center;"><img src="legend/Trails_5_BlueStoneBridge4.png" /></td><td>Blue Stone Bridge</td></tr><tr><td style="text-align: center;"><img src="legend/Trails_5_CresheimFootBridge5.png" /></td><td>Cresheim Foot Bridge</td></tr><tr><td style="text-align: center;"><img src="legend/Trails_5_ForbiddenDrive6.png" /></td><td>Forbidden Drive</td></tr><tr><td style="text-align: center;"><img src="legend/Trails_5_KitchensLaneBridge7.png" /></td><td>Kitchens Lane Bridge</td></tr><tr><td style="text-align: center;"><img src="legend/Trails_5_LavenderTrail8.png" /></td><td>Lavender Trail</td></tr><tr><td style="text-align: center;"><img src="legend/Trails_5_LincolnDriveTrail9.png" /></td><td>Lincoln Drive Trail</td></tr><tr><td style="text-align: center;"><img src="legend/Trails_5_LincolnDriveTrailBoardwalk10.png" /></td><td>Lincoln Drive Trail Boardwalk</td></tr><tr><td style="text-align: center;"><img src="legend/Trails_5_LivezeyLaneSidepath11.png" /></td><td>Livezey Lane Sidepath</td></tr><tr><td style="text-align: center;"><img src="legend/Trails_5_MonasteryDriveway12.png" /></td><td>Monastery Driveway</td></tr><tr><td style="text-align: center;"><img src="legend/Trails_5_MonasteryDrivewayLoop13.png" /></td><td>Monastery Driveway Loop</td></tr><tr><td style="text-align: center;"><img src="legend/Trails_5_MtAiryAveBridge14.png" /></td><td>Mt Airy Ave Bridge</td></tr><tr><td style="text-align: center;"><img src="legend/Trails_5_OrangeTrail15.png" /></td><td>Orange Trail</td></tr><tr><td style="text-align: center;"><img src="legend/Trails_5_RexAvenueBridge16.png" /></td><td>Rex Avenue Bridge</td></tr><tr><td style="text-align: center;"><img src="legend/Trails_5_ThomasMillCoveredBridge17.png" /></td><td>Thomas Mill Covered Bridge</td></tr><tr><td style="text-align: center;"><img src="legend/Trails_5_ValleyGreenBridge18.png" /></td><td>Valley Green Bridge</td></tr><tr><td style="text-align: center;"><img src="legend/Trails_5_WhiteTrail19.png" /></td><td>White Trail</td></tr><tr><td style="text-align: center;"><img src="legend/Trails_5_WissahickonEECDriveway20.png" /></td><td>Wissahickon EEC Driveway</td></tr><tr><td style="text-align: center;"><img src="legend/Trails_5_YellowTrail21.png" /></td><td>Yellow Trail</td></tr><tr><td style="text-align: center;"><img src="legend/Trails_5_BrownTrail22.png" /></td><td>Brown Trail</td></tr><tr><td style="text-align: center;"><img src="legend/Trails_5_MinorConnectorMinorTrail23.png" /></td><td>Minor Connector,Minor Trail</td></tr></table>', layer: layer_Trails_5},
+            {label: 'Trailheads & Parking<br /><table><tr><td style="text-align: center;"><img src="legend/TrailheadsParking_4_AccesstoRittenhouseTown0.png" /></td><td>Access to Rittenhouse Town</td></tr><tr><td style="text-align: center;"><img src="legend/TrailheadsParking_4_TrailAccess1.png" /></td><td>Trail Access</td></tr><tr><td style="text-align: center;"><img src="legend/TrailheadsParking_4_Trailheadnoparking2.png" /></td><td>Trailhead - no parking</td></tr><tr><td style="text-align: center;"><img src="legend/TrailheadsParking_4_TrailheadNoParking3.png" /></td><td>Trailhead - No Parking</td></tr><tr><td style="text-align: center;"><img src="legend/TrailheadsParking_4_TrailheadnearparkinglotsTrailheadwithparkingParkingAreaParkingLotSmallLotSmallparkinglotSmallParkingLotSomeParkingLargeParkingLotTrailheadwithminimalparking4.png" /></td><td>Trailhead near parking lots,Trailhead with parking,Parking Area,Parking Lot,Small Lot,Small parking lot,Small Parking Lot,Some Parking,Large Parking Lot,Trailhead with minimal parking</td></tr><tr><td style="text-align: center;"><img src="legend/TrailheadsParking_4_5.png" /></td><td></td></tr><tr><td style="text-align: center;"><img src="legend/TrailheadsParking_4_LotsofStreetParkingStreetparkingStreetParking6.png" /></td><td>Lots of Street Parking,Street parking,Street Parking</td></tr></table>', layer: layer_TrailheadsParking_4},
+            {label: '<img src="legend/Creeks_3.png" /> Creeks', layer: layer_Creeks_3},
+            {label: 'zone56<br /><table><tr><td style="text-align: center;"><img src="legend/zone56_2_ZONE50.png" /></td><td>ZONE 5 </td></tr><tr><td style="text-align: center;"><img src="legend/zone56_2_ZONE61.png" /></td><td>ZONE 6 </td></tr></table>', layer: layer_zone56_2},
+            {label: "OSM Standard", layer: layer_OSMStandard_1},
+            {label: "Google Terrain", layer: layer_GoogleTerrain_0},]
         var lay = L.control.layers.tree(null, overlaysTree,{
             //namedToggle: true,
             //selectorBack: false,
@@ -846,12 +820,12 @@
         lay.addTo(map);
         setBounds();
         var i = 0;
-        layer_zone56_1.eachLayer(function(layer) {
+        layer_zone56_2.eachLayer(function(layer) {
             var context = {
                 feature: layer.feature,
                 variables: {}
             };
-            layer.bindTooltip((layer.feature.properties['Name'] !== null?String('<div style="color: #323232; font-size: 12pt; font-family: \'Open Sans\', sans-serif;">' + layer.feature.properties['Name']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_zone56_1'});
+            layer.bindTooltip((layer.feature.properties['Name'] !== null?String('<div style="color: #323232; font-size: 12pt; font-family: \'Open Sans\', sans-serif;">' + layer.feature.properties['Name']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_zone56_2'});
             labels.push(layer);
             totalMarkers += 1;
               layer.added = true;
@@ -877,7 +851,7 @@
         document.getElementById("all").appendChild(col1);
         document.getElementById("all").appendChild(col2);
         col1.appendChild(mapDiv)
-        var Filters = {"creek_name": "str","TRAIL_NAME": "str"};
+        var Filters = {"TRAIL_NAME": "str","creek_name": "str"};
         function filterFunc() {
           map.eachLayer(function(lyr){
           if ("options" in lyr && "dataVar" in lyr["options"]){
@@ -965,12 +939,12 @@
           this[lyr["options"]["layerName"]].clearLayers();
           this[lyr["options"]["layerName"]].addData(features);
         var i = 0;
-        layer_zone56_1.eachLayer(function(layer) {
+        layer_zone56_2.eachLayer(function(layer) {
             var context = {
                 feature: layer.feature,
                 variables: {}
             };
-            layer.bindTooltip((layer.feature.properties['Name'] !== null?String('<div style="color: #323232; font-size: 12pt; font-family: \'Open Sans\', sans-serif;">' + layer.feature.properties['Name']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_zone56_1'});
+            layer.bindTooltip((layer.feature.properties['Name'] !== null?String('<div style="color: #323232; font-size: 12pt; font-family: \'Open Sans\', sans-serif;">' + layer.feature.properties['Name']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_zone56_2'});
             labels.push(layer);
             totalMarkers += 1;
               layer.added = true;
@@ -980,6 +954,62 @@
           }
           })
         }
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_TRAIL_NAME = document.createElement('div');
+            div_TRAIL_NAME.id = "div_TRAIL_NAME";
+            div_TRAIL_NAME.className= "filterselect";
+            document.getElementById("menu").appendChild(div_TRAIL_NAME);
+            sel_TRAIL_NAME = document.createElement('select');
+            sel_TRAIL_NAME.multiple = true;
+            sel_TRAIL_NAME.size = 10;
+            sel_TRAIL_NAME.id = "sel_TRAIL_NAME";
+            var TRAIL_NAME_options_str = "<option value='' unselected></option>";
+            sel_TRAIL_NAME.onchange = function(){filterFunc()};
+            TRAIL_NAME_options_str  += '<option value="100 Steps">100 Steps</option>';
+            TRAIL_NAME_options_str  += '<option value="Andorra Bike Bypass">Andorra Bike Bypass</option>';
+            TRAIL_NAME_options_str  += '<option value="Bells Mill Road Bridge">Bells Mill Road Bridge</option>';
+            TRAIL_NAME_options_str  += '<option value="Blue Stone Bridge">Blue Stone Bridge</option>';
+            TRAIL_NAME_options_str  += '<option value="Brown Trail">Brown Trail</option>';
+            TRAIL_NAME_options_str  += '<option value="Connector Trail">Connector Trail</option>';
+            TRAIL_NAME_options_str  += '<option value="Cresheim Foot Bridge">Cresheim Foot Bridge</option>';
+            TRAIL_NAME_options_str  += '<option value="Extra Yellow Trail">Extra Yellow Trail</option>';
+            TRAIL_NAME_options_str  += '<option value="Forbidden Drive">Forbidden Drive</option>';
+            TRAIL_NAME_options_str  += '<option value="Kitchens Lane Bridge">Kitchens Lane Bridge</option>';
+            TRAIL_NAME_options_str  += '<option value="Lavender Trail">Lavender Trail</option>';
+            TRAIL_NAME_options_str  += '<option value="Lincoln Drive Trail">Lincoln Drive Trail</option>';
+            TRAIL_NAME_options_str  += '<option value="Lincoln Drive Trail Boardwalk">Lincoln Drive Trail Boardwalk</option>';
+            TRAIL_NAME_options_str  += '<option value="Livezey Lane Sidepath">Livezey Lane Sidepath</option>';
+            TRAIL_NAME_options_str  += '<option value="Minor Trail">Minor Trail</option>';
+            TRAIL_NAME_options_str  += '<option value="Monastery Driveway">Monastery Driveway</option>';
+            TRAIL_NAME_options_str  += '<option value="Monastery Driveway Loop">Monastery Driveway Loop</option>';
+            TRAIL_NAME_options_str  += '<option value="Mt Airy Ave Bridge">Mt Airy Ave Bridge</option>';
+            TRAIL_NAME_options_str  += '<option value="Old Yellow  Trail">Old Yellow  Trail</option>';
+            TRAIL_NAME_options_str  += '<option value="Old Yellow Trail">Old Yellow Trail</option>';
+            TRAIL_NAME_options_str  += '<option value="Orange Trail">Orange Trail</option>';
+            TRAIL_NAME_options_str  += '<option value="Rex Avenue Bridge">Rex Avenue Bridge</option>';
+            TRAIL_NAME_options_str  += '<option value="Thomas Mill Covered Bridge">Thomas Mill Covered Bridge</option>';
+            TRAIL_NAME_options_str  += '<option value="Valley Green Bridge">Valley Green Bridge</option>';
+            TRAIL_NAME_options_str  += '<option value="White Trail">White Trail</option>';
+            TRAIL_NAME_options_str  += '<option value="Wissahickon EEC Driveway">Wissahickon EEC Driveway</option>';
+            TRAIL_NAME_options_str  += '<option value="Yellow Trail">Yellow Trail</option>';
+            sel_TRAIL_NAME.innerHTML = TRAIL_NAME_options_str;
+            div_TRAIL_NAME.appendChild(sel_TRAIL_NAME);
+            var lab_TRAIL_NAME = document.createElement('div');
+            lab_TRAIL_NAME.innerHTML = 'TRAIL_NAME';
+            lab_TRAIL_NAME.className = 'filterlabel';
+            div_TRAIL_NAME.appendChild(lab_TRAIL_NAME);
+            var reset_TRAIL_NAME = document.createElement('div');
+            reset_TRAIL_NAME.innerHTML = 'clear filter';
+            reset_TRAIL_NAME.className = 'filterlabel';
+            reset_TRAIL_NAME.onclick = function() {
+                var options = document.getElementById("sel_TRAIL_NAME").options;
+                for (var i=0; i < options.length; i++) {
+                    options[i].selected = false;
+                }
+                filterFunc();
+            };
+            div_TRAIL_NAME.appendChild(reset_TRAIL_NAME);
             document.getElementById("menu").appendChild(
                 document.createElement("div"));
             var div_creek_name = document.createElement('div');
@@ -1042,73 +1072,15 @@
                 filterFunc();
             };
             div_creek_name.appendChild(reset_creek_name);
-            document.getElementById("menu").appendChild(
-                document.createElement("div"));
-            var div_TRAIL_NAME = document.createElement('div');
-            div_TRAIL_NAME.id = "div_TRAIL_NAME";
-            div_TRAIL_NAME.className= "filterselect";
-            document.getElementById("menu").appendChild(div_TRAIL_NAME);
-            sel_TRAIL_NAME = document.createElement('select');
-            sel_TRAIL_NAME.multiple = true;
-            sel_TRAIL_NAME.size = 10;
-            sel_TRAIL_NAME.id = "sel_TRAIL_NAME";
-            var TRAIL_NAME_options_str = "<option value='' unselected></option>";
-            sel_TRAIL_NAME.onchange = function(){filterFunc()};
-            TRAIL_NAME_options_str  += '<option value="100 Steps">100 Steps</option>';
-            TRAIL_NAME_options_str  += '<option value="Andorra Bike Bypass">Andorra Bike Bypass</option>';
-            TRAIL_NAME_options_str  += '<option value="Bells Mill Road Bridge">Bells Mill Road Bridge</option>';
-            TRAIL_NAME_options_str  += '<option value="Blue Stone Bridge">Blue Stone Bridge</option>';
-            TRAIL_NAME_options_str  += '<option value="Brown Trail">Brown Trail</option>';
-            TRAIL_NAME_options_str  += '<option value="Connector Trail">Connector Trail</option>';
-            TRAIL_NAME_options_str  += '<option value="Cresheim Foot Bridge">Cresheim Foot Bridge</option>';
-            TRAIL_NAME_options_str  += '<option value="Extra Yellow Trail">Extra Yellow Trail</option>';
-            TRAIL_NAME_options_str  += '<option value="Forbidden Drive">Forbidden Drive</option>';
-            TRAIL_NAME_options_str  += '<option value="Kitchens Lane Bridge">Kitchens Lane Bridge</option>';
-            TRAIL_NAME_options_str  += '<option value="Lavender Trail">Lavender Trail</option>';
-            TRAIL_NAME_options_str  += '<option value="Lincoln Drive Trail">Lincoln Drive Trail</option>';
-            TRAIL_NAME_options_str  += '<option value="Lincoln Drive Trail Boardwalk">Lincoln Drive Trail Boardwalk</option>';
-            TRAIL_NAME_options_str  += '<option value="Livezey Lane Sidepath">Livezey Lane Sidepath</option>';
-            TRAIL_NAME_options_str  += '<option value="Minor Connector">Minor Connector</option>';
-            TRAIL_NAME_options_str  += '<option value="Minor Trail">Minor Trail</option>';
-            TRAIL_NAME_options_str  += '<option value="Monastery Driveway">Monastery Driveway</option>';
-            TRAIL_NAME_options_str  += '<option value="Monastery Driveway Loop">Monastery Driveway Loop</option>';
-            TRAIL_NAME_options_str  += '<option value="Mt Airy Ave Bridge">Mt Airy Ave Bridge</option>';
-            TRAIL_NAME_options_str  += '<option value="Old Yellow  Trail">Old Yellow  Trail</option>';
-            TRAIL_NAME_options_str  += '<option value="Old Yellow Trail">Old Yellow Trail</option>';
-            TRAIL_NAME_options_str  += '<option value="Orange Trail">Orange Trail</option>';
-            TRAIL_NAME_options_str  += '<option value="Rex Avenue Bridge">Rex Avenue Bridge</option>';
-            TRAIL_NAME_options_str  += '<option value="TEST">TEST</option>';
-            TRAIL_NAME_options_str  += '<option value="Thomas Mill Covered Bridge">Thomas Mill Covered Bridge</option>';
-            TRAIL_NAME_options_str  += '<option value="Valley Green Bridge">Valley Green Bridge</option>';
-            TRAIL_NAME_options_str  += '<option value="White Trail">White Trail</option>';
-            TRAIL_NAME_options_str  += '<option value="Wissahickon EEC Driveway">Wissahickon EEC Driveway</option>';
-            TRAIL_NAME_options_str  += '<option value="Yellow Trail">Yellow Trail</option>';
-            sel_TRAIL_NAME.innerHTML = TRAIL_NAME_options_str;
-            div_TRAIL_NAME.appendChild(sel_TRAIL_NAME);
-            var lab_TRAIL_NAME = document.createElement('div');
-            lab_TRAIL_NAME.innerHTML = 'TRAIL_NAME';
-            lab_TRAIL_NAME.className = 'filterlabel';
-            div_TRAIL_NAME.appendChild(lab_TRAIL_NAME);
-            var reset_TRAIL_NAME = document.createElement('div');
-            reset_TRAIL_NAME.innerHTML = 'clear filter';
-            reset_TRAIL_NAME.className = 'filterlabel';
-            reset_TRAIL_NAME.onclick = function() {
-                var options = document.getElementById("sel_TRAIL_NAME").options;
-                for (var i=0; i < options.length; i++) {
-                    options[i].selected = false;
-                }
-                filterFunc();
-            };
-            div_TRAIL_NAME.appendChild(reset_TRAIL_NAME);
-        resetLabels([layer_zone56_1,layer_Creeks_2]);
+        resetLabels([layer_zone56_2,layer_Creeks_3]);
         map.on("zoomend", function(){
-            resetLabels([layer_zone56_1,layer_Creeks_2]);
+            resetLabels([layer_zone56_2,layer_Creeks_3]);
         });
         map.on("layeradd", function(){
-            resetLabels([layer_zone56_1,layer_Creeks_2]);
+            resetLabels([layer_zone56_2,layer_Creeks_3]);
         });
         map.on("layerremove", function(){
-            resetLabels([layer_zone56_1,layer_Creeks_2]);
+            resetLabels([layer_zone56_2,layer_Creeks_3]);
         });
         </script>
     </body>
