@@ -47,7 +47,7 @@
         <script src="data/zone56_2.js"></script>
         <script src="data/Creeks_3.js"></script>
         <script src="data/TrailheadsParking_4.js"></script>
-        <script src="data/Trailscopy_5.js"></script>
+        <script src="data/Trails_5.js"></script>
         <script>
         var highlightLayer;
         function highlightFeature(e) {
@@ -66,7 +66,7 @@
         }
         var map = L.map('map', {
             zoomControl:false, maxZoom:27, minZoom:1
-        }).fitBounds([[40.048613380546065,-75.22968298103987],[40.05838544843725,-75.21224137434227]]);
+        }).fitBounds([[40.05371041922825,-75.23661057847029],[40.07009188922667,-75.20736862153005]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -98,7 +98,7 @@
 				popup._contentNode.classList.remove('media');
 			}
 		}
-        var title = new L.Control({'position':'bottomleft'});
+        var title = new L.Control({'position':'topleft'});
         title.onAdd = function (map) {
             this._div = L.DomUtil.create('div', 'info');
             this.update();
@@ -249,40 +249,7 @@
             });
             var popupContent = '<table>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['objectid'] !== null ? autolinker.link(String(feature.properties['objectid']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['watershed'] !== null ? autolinker.link(String(feature.properties['watershed']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['source'] !== null ? autolinker.link(String(feature.properties['source']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['gnis_name'] !== null ? autolinker.link(String(feature.properties['gnis_name']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['gnis_id'] !== null ? autolinker.link(String(feature.properties['gnis_id']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['mon_id'] !== null ? autolinker.link(String(feature.properties['mon_id']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['restoratio'] !== null ? autolinker.link(String(feature.properties['restoratio']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['order_shre'] !== null ? autolinker.link(String(feature.properties['order_shre']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['order_stra'] !== null ? autolinker.link(String(feature.properties['order_stra']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['ureachid'] !== null ? autolinker.link(String(feature.properties['ureachid']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['facilityid'] !== null ? autolinker.link(String(feature.properties['facilityid']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Shape__Len'] !== null ? autolinker.link(String(feature.properties['Shape__Len']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                        <td colspan="2">' + (feature.properties['CREEK_NAME'] !== null ? autolinker.link(String(feature.properties['CREEK_NAME']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
@@ -443,7 +410,7 @@
         });
         bounds_group.addLayer(layer_TrailheadsParking_4);
         map.addLayer(layer_TrailheadsParking_4);
-        function pop_Trailscopy_5(feature, layer) {
+        function pop_Trails_5(feature, layer) {
             layer.on({
                 mouseout: function(e) {
                     for (var i in e.target._eventParents) {
@@ -475,10 +442,6 @@
                         <th scope="row">Segment Miles</th>\
                         <td>' + (feature.properties['MILES'] !== null ? autolinker.link(String(feature.properties['MILES']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
-                    <tr>\
-                        <th scope="row">Shape__Len</th>\
-                        <td>' + (feature.properties['Shape__Len'] !== null ? autolinker.link(String(feature.properties['Shape__Len']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
                 </table>';
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
 			layer.on('popupopen', function(e) {
@@ -487,13 +450,13 @@
 			layer.bindPopup(content, { maxHeight: 400 });
         }
 
-        function style_Trailscopy_5_0(feature) {
+        function style_Trails_5_0(feature) {
             switch(String(feature.properties['TRAIL_NAME'])) {
                 default:
                     return {
-                pane: 'pane_Trailscopy_5',
+                pane: 'pane_Trails_5',
                 opacity: 1,
-                color: 'rgba(159,228,89,1.0)',
+                color: 'rgba(32,134,201,1.0)',
                 dashArray: '',
                 lineCap: 'square',
                 lineJoin: 'bevel',
@@ -504,7 +467,7 @@
                     break;
                 case '100 Steps':
                     return {
-                pane: 'pane_Trailscopy_5',
+                pane: 'pane_Trails_5',
                 opacity: 1,
                 color: 'rgba(27,224,27,1.0)',
                 dashArray: '',
@@ -517,7 +480,7 @@
                     break;
                 case 'Andorra Bike Bypass':
                     return {
-                pane: 'pane_Trailscopy_5',
+                pane: 'pane_Trails_5',
                 opacity: 1,
                 color: 'rgba(231,15,202,1.0)',
                 dashArray: '',
@@ -530,7 +493,7 @@
                     break;
                 case 'Bells Mill Road Bridge':
                     return {
-                pane: 'pane_Trailscopy_5',
+                pane: 'pane_Trails_5',
                 opacity: 1,
                 color: 'rgba(226,153,43,1.0)',
                 dashArray: '',
@@ -543,7 +506,7 @@
                     break;
                 case 'Blue Stone Bridge':
                     return {
-                pane: 'pane_Trailscopy_5',
+                pane: 'pane_Trails_5',
                 opacity: 1,
                 color: 'rgba(55,172,65,1.0)',
                 dashArray: '',
@@ -556,7 +519,7 @@
                     break;
                 case 'Cresheim Foot Bridge':
                     return {
-                pane: 'pane_Trailscopy_5',
+                pane: 'pane_Trails_5',
                 opacity: 1,
                 color: 'rgba(197,163,90,1.0)',
                 dashArray: '',
@@ -569,7 +532,7 @@
                     break;
                 case 'Forbidden Drive':
                     return {
-                pane: 'pane_Trailscopy_5',
+                pane: 'pane_Trails_5',
                 opacity: 1,
                 color: 'rgba(33,28,226,1.0)',
                 dashArray: '',
@@ -582,7 +545,7 @@
                     break;
                 case 'Kitchens Lane Bridge':
                     return {
-                pane: 'pane_Trailscopy_5',
+                pane: 'pane_Trails_5',
                 opacity: 1,
                 color: 'rgba(177,225,132,1.0)',
                 dashArray: '',
@@ -595,7 +558,7 @@
                     break;
                 case 'Lavender Trail':
                     return {
-                pane: 'pane_Trailscopy_5',
+                pane: 'pane_Trails_5',
                 opacity: 1,
                 color: 'rgba(182,124,210,1.0)',
                 dashArray: '',
@@ -608,7 +571,7 @@
                     break;
                 case 'Lincoln Drive Trail':
                     return {
-                pane: 'pane_Trailscopy_5',
+                pane: 'pane_Trails_5',
                 opacity: 1,
                 color: 'rgba(233,16,45,1.0)',
                 dashArray: '',
@@ -621,7 +584,7 @@
                     break;
                 case 'Lincoln Drive Trail Boardwalk':
                     return {
-                pane: 'pane_Trailscopy_5',
+                pane: 'pane_Trails_5',
                 opacity: 1,
                 color: 'rgba(100,62,133,1.0)',
                 dashArray: '',
@@ -634,7 +597,7 @@
                     break;
                 case 'Livezey Lane Sidepath':
                     return {
-                pane: 'pane_Trailscopy_5',
+                pane: 'pane_Trails_5',
                 opacity: 1,
                 color: 'rgba(191,133,238,1.0)',
                 dashArray: '',
@@ -647,9 +610,9 @@
                     break;
                 case 'Minor Trail':
                     return {
-                pane: 'pane_Trailscopy_5',
+                pane: 'pane_Trails_5',
                 opacity: 1,
-                color: 'rgba(24,160,136,1.0)',
+                color: 'rgba(32,134,201,1.0)',
                 dashArray: '',
                 lineCap: 'square',
                 lineJoin: 'bevel',
@@ -660,7 +623,7 @@
                     break;
                 case 'Monastery Driveway':
                     return {
-                pane: 'pane_Trailscopy_5',
+                pane: 'pane_Trails_5',
                 opacity: 1,
                 color: 'rgba(163,101,233,1.0)',
                 dashArray: '',
@@ -673,7 +636,7 @@
                     break;
                 case 'Monastery Driveway Loop':
                     return {
-                pane: 'pane_Trailscopy_5',
+                pane: 'pane_Trails_5',
                 opacity: 1,
                 color: 'rgba(71,147,114,1.0)',
                 dashArray: '',
@@ -686,7 +649,7 @@
                     break;
                 case 'Mt Airy Ave Bridge':
                     return {
-                pane: 'pane_Trailscopy_5',
+                pane: 'pane_Trails_5',
                 opacity: 1,
                 color: 'rgba(168,133,82,1.0)',
                 dashArray: '',
@@ -699,7 +662,7 @@
                     break;
                 case 'Orange Trail':
                     return {
-                pane: 'pane_Trailscopy_5',
+                pane: 'pane_Trails_5',
                 opacity: 1,
                 color: 'rgba(255,127,0,1.0)',
                 dashArray: '',
@@ -712,7 +675,7 @@
                     break;
                 case 'Rex Avenue Bridge':
                     return {
-                pane: 'pane_Trailscopy_5',
+                pane: 'pane_Trails_5',
                 opacity: 1,
                 color: 'rgba(131,204,105,1.0)',
                 dashArray: '',
@@ -725,9 +688,9 @@
                     break;
                 case 'Thomas Mill Covered Bridge':
                     return {
-                pane: 'pane_Trailscopy_5',
+                pane: 'pane_Trails_5',
                 opacity: 1,
-                color: 'rgba(32,135,169,1.0)',
+                color: 'rgba(227,26,28,1.0)',
                 dashArray: '',
                 lineCap: 'square',
                 lineJoin: 'bevel',
@@ -738,7 +701,7 @@
                     break;
                 case 'Valley Green Bridge':
                     return {
-                pane: 'pane_Trailscopy_5',
+                pane: 'pane_Trails_5',
                 opacity: 1,
                 color: 'rgba(219,245,48,1.0)',
                 dashArray: '',
@@ -751,7 +714,7 @@
                     break;
                 case 'White Trail':
                     return {
-                pane: 'pane_Trailscopy_5',
+                pane: 'pane_Trails_5',
                 opacity: 1,
                 color: 'rgba(255,255,255,1.0)',
                 dashArray: '',
@@ -764,7 +727,7 @@
                     break;
                 case 'Wissahickon EEC Driveway':
                     return {
-                pane: 'pane_Trailscopy_5',
+                pane: 'pane_Trails_5',
                 opacity: 1,
                 color: 'rgba(122,255,155,1.0)',
                 dashArray: '',
@@ -777,7 +740,7 @@
                     break;
                 case 'Yellow Trail':
                     return {
-                pane: 'pane_Trailscopy_5',
+                pane: 'pane_Trails_5',
                 opacity: 1,
                 color: 'rgba(243,239,39,1.0)',
                 dashArray: '',
@@ -790,7 +753,7 @@
                     break;
                 case 'Brown Trail':
                     return {
-                pane: 'pane_Trailscopy_5',
+                pane: 'pane_Trails_5',
                 opacity: 1,
                 color: 'rgba(145,104,17,1.0)',
                 dashArray: '',
@@ -803,9 +766,9 @@
                     break;
                 case 'Minor Connector':
                     return {
-                pane: 'pane_Trailscopy_5',
+                pane: 'pane_Trails_5',
                 opacity: 1,
-                color: 'rgba(24,160,136,1.0)',
+                color: 'rgba(32,134,201,1.0)',
                 dashArray: '',
                 lineCap: 'square',
                 lineJoin: 'bevel',
@@ -816,20 +779,20 @@
                     break;
             }
         }
-        map.createPane('pane_Trailscopy_5');
-        map.getPane('pane_Trailscopy_5').style.zIndex = 405;
-        map.getPane('pane_Trailscopy_5').style['mix-blend-mode'] = 'normal';
-        var layer_Trailscopy_5 = new L.geoJson(json_Trailscopy_5, {
+        map.createPane('pane_Trails_5');
+        map.getPane('pane_Trails_5').style.zIndex = 405;
+        map.getPane('pane_Trails_5').style['mix-blend-mode'] = 'normal';
+        var layer_Trails_5 = new L.geoJson(json_Trails_5, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_Trailscopy_5',
-            layerName: 'layer_Trailscopy_5',
-            pane: 'pane_Trailscopy_5',
-            onEachFeature: pop_Trailscopy_5,
-            style: style_Trailscopy_5_0,
+            dataVar: 'json_Trails_5',
+            layerName: 'layer_Trails_5',
+            pane: 'pane_Trails_5',
+            onEachFeature: pop_Trails_5,
+            style: style_Trails_5_0,
         });
-        bounds_group.addLayer(layer_Trailscopy_5);
-        map.addLayer(layer_Trailscopy_5);
+        bounds_group.addLayer(layer_Trails_5);
+        map.addLayer(layer_Trails_5);
         var osmGeocoder = new L.Control.Geocoder({
             collapsed: true,
             position: 'topleft',
@@ -841,7 +804,7 @@
         document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
         .title += 'Search for a place';
         var overlaysTree = [
-            {label: 'Trails copy<br /><table><tr><td style="text-align: center;"><img src="legend/Trailscopy_5_0.png" /></td><td></td></tr><tr><td style="text-align: center;"><img src="legend/Trailscopy_5_100Steps1.png" /></td><td>100 Steps</td></tr><tr><td style="text-align: center;"><img src="legend/Trailscopy_5_AndorraBikeBypass2.png" /></td><td>Andorra Bike Bypass</td></tr><tr><td style="text-align: center;"><img src="legend/Trailscopy_5_BellsMillRoadBridge3.png" /></td><td>Bells Mill Road Bridge</td></tr><tr><td style="text-align: center;"><img src="legend/Trailscopy_5_BlueStoneBridge4.png" /></td><td>Blue Stone Bridge</td></tr><tr><td style="text-align: center;"><img src="legend/Trailscopy_5_CresheimFootBridge5.png" /></td><td>Cresheim Foot Bridge</td></tr><tr><td style="text-align: center;"><img src="legend/Trailscopy_5_ForbiddenDrive6.png" /></td><td>Forbidden Drive</td></tr><tr><td style="text-align: center;"><img src="legend/Trailscopy_5_KitchensLaneBridge7.png" /></td><td>Kitchens Lane Bridge</td></tr><tr><td style="text-align: center;"><img src="legend/Trailscopy_5_LavenderTrail8.png" /></td><td>Lavender Trail</td></tr><tr><td style="text-align: center;"><img src="legend/Trailscopy_5_LincolnDriveTrail9.png" /></td><td>Lincoln Drive Trail</td></tr><tr><td style="text-align: center;"><img src="legend/Trailscopy_5_LincolnDriveTrailBoardwalk10.png" /></td><td>Lincoln Drive Trail Boardwalk</td></tr><tr><td style="text-align: center;"><img src="legend/Trailscopy_5_LivezeyLaneSidepath11.png" /></td><td>Livezey Lane Sidepath</td></tr><tr><td style="text-align: center;"><img src="legend/Trailscopy_5_MinorTrail12.png" /></td><td>Minor Trail</td></tr><tr><td style="text-align: center;"><img src="legend/Trailscopy_5_MonasteryDriveway13.png" /></td><td>Monastery Driveway</td></tr><tr><td style="text-align: center;"><img src="legend/Trailscopy_5_MonasteryDrivewayLoop14.png" /></td><td>Monastery Driveway Loop</td></tr><tr><td style="text-align: center;"><img src="legend/Trailscopy_5_MtAiryAveBridge15.png" /></td><td>Mt Airy Ave Bridge</td></tr><tr><td style="text-align: center;"><img src="legend/Trailscopy_5_OrangeTrail16.png" /></td><td>Orange Trail</td></tr><tr><td style="text-align: center;"><img src="legend/Trailscopy_5_RexAvenueBridge17.png" /></td><td>Rex Avenue Bridge</td></tr><tr><td style="text-align: center;"><img src="legend/Trailscopy_5_ThomasMillCoveredBridge18.png" /></td><td>Thomas Mill Covered Bridge</td></tr><tr><td style="text-align: center;"><img src="legend/Trailscopy_5_ValleyGreenBridge19.png" /></td><td>Valley Green Bridge</td></tr><tr><td style="text-align: center;"><img src="legend/Trailscopy_5_WhiteTrail20.png" /></td><td>White Trail</td></tr><tr><td style="text-align: center;"><img src="legend/Trailscopy_5_WissahickonEECDriveway21.png" /></td><td>Wissahickon EEC Driveway</td></tr><tr><td style="text-align: center;"><img src="legend/Trailscopy_5_YellowTrail22.png" /></td><td>Yellow Trail</td></tr><tr><td style="text-align: center;"><img src="legend/Trailscopy_5_BrownTrail23.png" /></td><td>Brown Trail</td></tr><tr><td style="text-align: center;"><img src="legend/Trailscopy_5_MinorConnector24.png" /></td><td>Minor Connector</td></tr></table>', layer: layer_Trailscopy_5},
+            {label: 'Trails<br /><table><tr><td style="text-align: center;"><img src="legend/Trails_5_0.png" /></td><td></td></tr><tr><td style="text-align: center;"><img src="legend/Trails_5_100Steps1.png" /></td><td>100 Steps</td></tr><tr><td style="text-align: center;"><img src="legend/Trails_5_AndorraBikeBypass2.png" /></td><td>Andorra Bike Bypass</td></tr><tr><td style="text-align: center;"><img src="legend/Trails_5_BellsMillRoadBridge3.png" /></td><td>Bells Mill Road Bridge</td></tr><tr><td style="text-align: center;"><img src="legend/Trails_5_BlueStoneBridge4.png" /></td><td>Blue Stone Bridge</td></tr><tr><td style="text-align: center;"><img src="legend/Trails_5_CresheimFootBridge5.png" /></td><td>Cresheim Foot Bridge</td></tr><tr><td style="text-align: center;"><img src="legend/Trails_5_ForbiddenDrive6.png" /></td><td>Forbidden Drive</td></tr><tr><td style="text-align: center;"><img src="legend/Trails_5_KitchensLaneBridge7.png" /></td><td>Kitchens Lane Bridge</td></tr><tr><td style="text-align: center;"><img src="legend/Trails_5_LavenderTrail8.png" /></td><td>Lavender Trail</td></tr><tr><td style="text-align: center;"><img src="legend/Trails_5_LincolnDriveTrail9.png" /></td><td>Lincoln Drive Trail</td></tr><tr><td style="text-align: center;"><img src="legend/Trails_5_LincolnDriveTrailBoardwalk10.png" /></td><td>Lincoln Drive Trail Boardwalk</td></tr><tr><td style="text-align: center;"><img src="legend/Trails_5_LivezeyLaneSidepath11.png" /></td><td>Livezey Lane Sidepath</td></tr><tr><td style="text-align: center;"><img src="legend/Trails_5_MinorTrail12.png" /></td><td>Minor Trail</td></tr><tr><td style="text-align: center;"><img src="legend/Trails_5_MonasteryDriveway13.png" /></td><td>Monastery Driveway</td></tr><tr><td style="text-align: center;"><img src="legend/Trails_5_MonasteryDrivewayLoop14.png" /></td><td>Monastery Driveway Loop</td></tr><tr><td style="text-align: center;"><img src="legend/Trails_5_MtAiryAveBridge15.png" /></td><td>Mt Airy Ave Bridge</td></tr><tr><td style="text-align: center;"><img src="legend/Trails_5_OrangeTrail16.png" /></td><td>Orange Trail</td></tr><tr><td style="text-align: center;"><img src="legend/Trails_5_RexAvenueBridge17.png" /></td><td>Rex Avenue Bridge</td></tr><tr><td style="text-align: center;"><img src="legend/Trails_5_ThomasMillCoveredBridge18.png" /></td><td>Thomas Mill Covered Bridge</td></tr><tr><td style="text-align: center;"><img src="legend/Trails_5_ValleyGreenBridge19.png" /></td><td>Valley Green Bridge</td></tr><tr><td style="text-align: center;"><img src="legend/Trails_5_WhiteTrail20.png" /></td><td>White Trail</td></tr><tr><td style="text-align: center;"><img src="legend/Trails_5_WissahickonEECDriveway21.png" /></td><td>Wissahickon EEC Driveway</td></tr><tr><td style="text-align: center;"><img src="legend/Trails_5_YellowTrail22.png" /></td><td>Yellow Trail</td></tr><tr><td style="text-align: center;"><img src="legend/Trails_5_BrownTrail23.png" /></td><td>Brown Trail</td></tr><tr><td style="text-align: center;"><img src="legend/Trails_5_MinorConnector24.png" /></td><td>Minor Connector</td></tr></table>', layer: layer_Trails_5},
             {label: 'Trailheads & Parking<br /><table><tr><td style="text-align: center;"><img src="legend/TrailheadsParking_4_AccesstoRittenhouseTown0.png" /></td><td>Access to Rittenhouse Town</td></tr><tr><td style="text-align: center;"><img src="legend/TrailheadsParking_4_TrailAccess1.png" /></td><td>Trail Access</td></tr><tr><td style="text-align: center;"><img src="legend/TrailheadsParking_4_TrailheadnoparkingTrailheadNoParking2.png" /></td><td>Trailhead - no parking,Trailhead - No Parking</td></tr><tr><td style="text-align: center;"><img src="legend/TrailheadsParking_4_TrailheadnearparkinglotsTrailheadwithparkingParkingAreaParkingLotSmallLotSmallparkinglotSmallParkingLotSomeParkingLargeParkingLotTrailheadwithminimalparking3.png" /></td><td>Trailhead near parking lots,Trailhead with parking,Parking Area,Parking Lot,Small Lot,Small parking lot,Small Parking Lot,Some Parking,Large Parking Lot,Trailhead with minimal parking</td></tr><tr><td style="text-align: center;"><img src="legend/TrailheadsParking_4_LotsofStreetParkingStreetparkingStreetParking4.png" /></td><td>Lots of Street Parking,Street parking,Street Parking</td></tr><tr><td style="text-align: center;"><img src="legend/TrailheadsParking_4_5.png" /></td><td></td></tr></table>', layer: layer_TrailheadsParking_4},
             {label: '<img src="legend/Creeks_3.png" /> Creeks', layer: layer_Creeks_3},
             {label: 'zone56<br /><table><tr><td style="text-align: center;"><img src="legend/zone56_2_ZONE50.png" /></td><td>ZONE 5 </td></tr><tr><td style="text-align: center;"><img src="legend/zone56_2_ZONE61.png" /></td><td>ZONE 6 </td></tr></table>', layer: layer_zone56_2},
