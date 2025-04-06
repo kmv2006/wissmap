@@ -68,8 +68,6 @@
             zoomControl:false, maxZoom:27, minZoom:1
         }).fitBounds([[40.048613380546065,-75.22968298103987],[40.05838544843725,-75.21224137434227]]);
         var hash = new L.Hash(map);
-        // add scale bar
-        L.control.scale({imperial: true, maxwidth:200}).addTo(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
         // remove popup's row if "visible-with-data"
